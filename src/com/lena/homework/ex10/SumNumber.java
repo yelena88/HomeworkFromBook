@@ -5,11 +5,16 @@ package com.lena.homework.ex10;
 
 public class SumNumber {
     public static void main(String[] args) {
+        // наша цифра
+        int x = 10;
+        SumOfNum(x);
+    }
 
+    private static void SumOfNum(int x) {
         int sum = 0;
-        for (int a=0; a<=10; a++){
+        for (int a = 1; a <= x; a++) {
             sum += a;
         }
-        System.out.println("Сумма всех чисел числа а, равняется - " + sum + ".");
+        System.out.println("Сумма всех цифр числа x, равняется " + sum + ".");
     }
 }
