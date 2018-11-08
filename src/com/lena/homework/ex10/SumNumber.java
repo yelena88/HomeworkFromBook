@@ -6,15 +6,18 @@ package com.lena.homework.ex10;
 public class SumNumber {
     public static void main(String[] args) {
         // наша цифра
-        int x = 10;
+        int x = 7554;
         SumOfNum(x);
     }
 
     private static void SumOfNum(int x) {
-        int sum = 0;
-        for (int a = 1; a <= x; a++) {
-            sum += a;
+        int y = 0;
+
+        while (x > 0) {
+            y += x % 10;
+            x /= 10;
         }
-        System.out.println("Сумма всех цифр числа x, равняется " + sum + ".");
+
+        System.out.print("Сумма цифр числа x, равняется " + y + ".");
     }
 }
