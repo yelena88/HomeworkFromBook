@@ -26,24 +26,20 @@ public class BinaryNumbers {
 
         // создаем файл с 20 рандомными числами
         Random random = new Random();
-        DataOutputStream dataOutputStream = new DataOutputStream(new BufferedOutputStream(new FileOutputStream(path)));
 
-        try {
+        try (DataOutputStream dataOutputStream = new DataOutputStream(new BufferedOutputStream(new FileOutputStream(path)))) {
             for (int i = 1; i <= 20; i++) {
                 dataOutputStream.writeInt(random.nextInt(20));
             }
 
         } catch (IOException e) {
             e.printStackTrace();
-        } finally {
-            dataOutputStream.close();
         }
 
         // прочитаем файл
         List<Integer> numbers = new ArrayList<>();
-        DataInputStream dataInputStream = new DataInputStream(new BufferedInputStream(new FileInputStream(path)));
 
-        try {
+        try (DataInputStream dataInputStream = new DataInputStream(new BufferedInputStream(new FileInputStream(path)))) {
             while (true) {
 
                 try {
@@ -52,8 +48,6 @@ public class BinaryNumbers {
                     break;
                 }
             }
-        } finally {
-            dataInputStream.close();
         }
 
         System.out.print("Цифры в файле: ");
@@ -61,6 +55,6 @@ public class BinaryNumbers {
         numbers.forEach(x -> System.out.print(x + " "));
 
         System.out.print("\nСреднее арифметическое значение цифр в файле: ");
-        System.out.print(numbers.stream().mapToInt(x -> x.intValue()).summaryStatistics().getAverage());
+        System.out.print(numbers.stream().mapToInt(Integer::intValue).summaryStatistics().getAverage());
     }
 }

@@ -26,15 +26,11 @@ public class NumberParser {
         List<Integer> numbers = new ArrayList<>();
         File file = new File("src/com/lena/homework/ex31/numbers.txt");
         FileInputStream fileInputStream = new FileInputStream(file);
-        BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(fileInputStream, StandardCharsets.UTF_8));
 
-        try {
+        try (fileInputStream; BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(fileInputStream, StandardCharsets.UTF_8))) {
             while (bufferedReader.ready()) input = (bufferedReader.readLine());
         } catch (IOException e) {
             e.printStackTrace();
-        } finally {
-            bufferedReader.close();
-            fileInputStream.close();
         }
 
         List<String> arrayList = new ArrayList<>(Arrays.asList(input.split(" ")));
@@ -48,7 +44,7 @@ public class NumberParser {
         numbers.forEach(x -> System.out.print(x + " "));
 
         System.out.print("\nСумма цифр в файле: ");
-        System.out.print(numbers.stream().mapToInt(x -> x.intValue()).sum());
+        System.out.print(numbers.stream().mapToInt(Integer::intValue).sum());
 
         System.out.println();
         System.out.print("Цифры в файле без дубликатов: ");
@@ -56,6 +52,6 @@ public class NumberParser {
         numbers.stream().distinct().forEach(x -> System.out.print(x + " "));
 
         System.out.print("\nСумма цифр в файле без дубликатов: ");
-        System.out.print(numbers.stream().distinct().mapToInt(x -> x.intValue()).sum());
+        System.out.print(numbers.stream().distinct().mapToInt(Integer::intValue).sum());
     }
 }

@@ -28,9 +28,12 @@ public class FileParser {
         List<String> sentences = new ArrayList<>();
         File file = new File("src/com/lena/homework/ex30/text.txt");
         FileInputStream fileInputStream = new FileInputStream(file);
-        BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(fileInputStream, StandardCharsets.UTF_8));
 
-        if (bufferedReader.ready()) sentence = bufferedReader.readLine().toLowerCase();
+        try (BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(fileInputStream, StandardCharsets.UTF_8))) {
+            if (bufferedReader.ready()) sentence = bufferedReader.readLine().toLowerCase();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         sentences.add(sentence);
 
         Hashtable<String, Integer> vocabulary = new Hashtable<>();
