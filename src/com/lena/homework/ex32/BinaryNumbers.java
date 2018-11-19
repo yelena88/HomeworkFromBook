@@ -28,25 +28,33 @@ public class BinaryNumbers {
         Random random = new Random();
         DataOutputStream dataOutputStream = new DataOutputStream(new BufferedOutputStream(new FileOutputStream(path)));
 
-        for (int i = 1; i <= 20; i++) {
-            dataOutputStream.writeInt(random.nextInt(20));
+        try {
+            for (int i = 1; i <= 20; i++) {
+                dataOutputStream.writeInt(random.nextInt(20));
+            }
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            dataOutputStream.close();
         }
-        dataOutputStream.close();
 
         // прочитаем файл
         List<Integer> numbers = new ArrayList<>();
         DataInputStream dataInputStream = new DataInputStream(new BufferedInputStream(new FileInputStream(path)));
 
-        while (true) {
+        try {
+            while (true) {
 
-            try {
-                numbers.add(dataInputStream.readInt());
-            } catch (EOFException e) {
-                break;
+                try {
+                    numbers.add(dataInputStream.readInt());
+                } catch (EOFException e) {
+                    break;
+                }
             }
+        } finally {
+            dataInputStream.close();
         }
-        dataInputStream.close();
-
 
         System.out.print("Цифры в файле: ");
 

@@ -28,7 +28,14 @@ public class NumberParser {
         FileInputStream fileInputStream = new FileInputStream(file);
         BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(fileInputStream, StandardCharsets.UTF_8));
 
-        while (bufferedReader.ready()) input = (bufferedReader.readLine());
+        try {
+            while (bufferedReader.ready()) input = (bufferedReader.readLine());
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            bufferedReader.close();
+            fileInputStream.close();
+        }
 
         List<String> arrayList = new ArrayList<>(Arrays.asList(input.split(" ")));
 
